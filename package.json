@@ -1,0 +1,20 @@
+{
+  "name": "@grunmouse/convex",
+  "version": "0.1.0",
+  "description": "Выпуклая оболочка",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@grunmouse/math-matrix": "link:..\\math-matrix",
+    "@grunmouse/math-vector": "link:..\\math-vector",
+    "@grunmouse/multioperator-ariphmetic": "link:..\\multioperator-ariphmetic"
+  },
+  "devDependencies": {
+    "@grunmouse/jsverify-env": "link:..\\jsverify-env",
+    "jsverify": "^0.8.4"
+  }
+}
