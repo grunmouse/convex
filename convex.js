@@ -27,6 +27,7 @@ function isInConvex(R, S){
 
 /**
  * Находит часть выпуклой оболочки множества S, соединяющую точки A B
+ * Использует алгоритм быстрой оболочки
  * @param A : Vector2
  * @param B : Vector2
  * @param S : Array<Vector2>
@@ -57,61 +58,9 @@ function convexPart(A, B, S){
 	return AC.concat(CB.slice(1));
 }
 
-
-function selectDiametr(S, x){
-	let [SA, SB] = getTwoDiameters(S, x);
-	
-	let A, B;
-	if(SA[0][y] >= SB[1][y]){
-		A = SA[1];
-		B = SB[0];
-	}
-	else if(SA[1][y] <= SB[0][y]){
-		A = SA[0];
-		B = SB[1];
-	}
-	else{
-		let d = [
-			SA[0][y] - SB[0][y],
-			SA[1][y] - SB[1][y]
-		];
-		if(SA[0][y]<=SB[0][y]){
-			if(SA[1][y]<=SB[1][y]){
-				A = SA[0];
-				B = SB[1];
-			}
-			else{
-				if(SB[0][y] - SA[0][y] >= SB[1][y] - SA[1][y]){
-					A = SA[0];
-					B = SB[1];
-				}
-				else{
-					A = SA[1];
-					B = SB[0];
-				}
-			}
-		}
-		else if(SA[0][y]>=SB[0][y]){
-			if(SA[1][y]>=SB[1][y]){
-				A = SA[1];
-				B = SB[0];
-			}
-			else{
-				if(SA[0][y] - SB[0][y] >= SA[1][y] - SB[1][y]){
-					A = SA[1];
-					B = SB[0];
-				}
-				else{
-					A = SA[0];
-					B = SB[1];
-				}
-			}
-		}
-			
-	}
-	return [A, B];
-}
-
+/**
+ * Выбирает в массиве точек два диаметра, для того, чтобы построить фрагменты выпуклой оболочки вокруг них
+ */
 function getTwoDiameters(S, x){
 	let y = (1-x);
 	let xx = S.map(C=>(C[x]));
@@ -131,6 +80,11 @@ function getTwoDiameters(S, x){
 	return [SA, SB, S1];
 }
 
+/**
+ * Находит выпуклую оболочку множества точек
+ * @param S : Array<Vector2> - множество точек
+ * @return Array<Vector2> - массив точек выпуклой оболочки в порядке обхода
+ */
 function convex(S){
 	const area = rectangleArea(S);
 	let x = +(area[1].x - area[0].x < area[1].y - area[0].y);
