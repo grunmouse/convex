@@ -34,7 +34,7 @@ function isInConvex(R, S){
  */
 function convexPart(A, B, S){
 	const X = B.sub(A);
-	const H = S.map((C)=>(C.sub(A).cross(X)));
+	const H = S.map((C)=>(X.cross(C.sub(A))));
 	let max = Math.max(...H);
 	
 	if(max<=0){
